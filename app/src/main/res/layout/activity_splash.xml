@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.aw.musictagger.Splash">
+
+   <RelativeLayout
+       android:layout_centerInParent="true"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       <ImageView
+           android:visibility="invisible"
+           android:layout_centerHorizontal="true"
+           android:id="@+id/iv_logo"
+           android:src="@drawable/icon"
+           android:layout_width="100dp"
+           android:layout_height="100dp" />
+       <TextView
+           android:visibility="invisible"
+           android:id="@+id/tv_splash_app_name"
+           android:text="Music Tagger"
+           android:layout_marginTop="16dp"
+           android:textColor="#ffffff"
+           android:singleLine="true"
+           android:textSize="30sp"
+           android:layout_below="@+id/iv_logo"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+   </RelativeLayout>
+</RelativeLayout>
