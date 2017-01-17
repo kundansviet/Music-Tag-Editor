@@ -5,6 +5,7 @@ import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -41,22 +42,11 @@ public class SongList extends Fragment implements RecyclerItemClickListener.OnIt
                              Bundle savedInstanceState) {
         View converview = inflater.inflate(R.layout.fragment_song_list, container, false);
         song_data = new ArrayList<>();
-        song_data.addAll(fetchAllSong());
+        new FetchSongTask().execute();
         tv_empty_list= (TextView) converview.findViewById(R.id.tv_empty_list);
-
-        if (song_data.size() == 0) {
-
-            tv_empty_list.setVisibility(View.VISIBLE);
-        }else {
-            tv_empty_list.setVisibility(View.GONE);
-        }
-
-
         rv_song_list = (RecyclerView) converview.findViewById(R.id.rv_song_list);
-        rv_song_list.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        rv_song_list.setAdapter(new SongListAdapter(getActivity(), song_data));
         rv_song_list.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), this));
-        rv_song_list.scrollToPosition(current_pos);
+
         // Inflate the layout for this fragment
         return converview;
     }
@@ -147,5 +137,31 @@ public class SongList extends Fragment implements RecyclerItemClickListener.OnIt
         super.onCreate(savedInstanceState);
 
        current_pos= getArguments().getInt("c_pos", 0);
+    }
+
+    class FetchSongTask extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+
+            song_data.addAll(fetchAllSong());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            if (song_data.size() == 0) {
+
+                tv_empty_list.setVisibility(View.VISIBLE);
+            }else {
+                tv_empty_list.setVisibility(View.GONE);
+            }
+
+            rv_song_list.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rv_song_list.setAdapter(new SongListAdapter(getActivity(), song_data));
+            rv_song_list.scrollToPosition(current_pos);
+
+        }
     }
 }

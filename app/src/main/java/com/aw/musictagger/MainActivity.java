@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private PagerAdapter pagerAdapter;
     private TabLayout tab;
     private Toolbar main_toolbar;
-    private int selected_page = 0,scroll_pos=0;
+    private int selected_page = 0,scroll_pos=0,backpress_cout=0;;
+
 
 
     @Override
@@ -156,5 +158,23 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        if (backpress_cout==0){
+            backpress_cout=backpress_cout+1;
+            Toast.makeText(MainActivity.this,"press again to exit",Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    backpress_cout=backpress_cout-1;
+                }
+            },3000);
+        }else {
+            finish();
+        }
     }
 }

@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:layout_above="@+id/tv_song_name"
                 android:scaleType="centerCrop"
-                android:src="@drawable/song_artwork" />
+               />
 
             <TextView
                 android:id="@+id/tv_h_song_name"

@@ -24,6 +24,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 fragment=SongList.getNewInstance(s_pos);
                 break;
             case 1:
+                fragment=AlbumList.getNewInstance(s_pos);
+                break;
+            case 2:
                 fragment=new FileChooser();
                 break;
 
@@ -33,7 +36,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
     @Override
     public CharSequence getPageTitle(int position) {
@@ -44,6 +47,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
              title="Song";
                 break;
             case 1:
+                title="Album";
+                break;
+            case 2:
                 title="File";
                 break;
 

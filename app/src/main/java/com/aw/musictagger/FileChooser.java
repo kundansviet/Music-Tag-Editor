@@ -55,7 +55,7 @@ public class FileChooser extends Fragment {
                 Intent chooseFile;
                 Intent intent;
                 chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-                chooseFile.setType("file/*");
+                chooseFile.setType("audio/*");
                 intent = Intent.createChooser(chooseFile, "Choose a file");
                 startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
             }
@@ -103,7 +103,12 @@ public class FileChooser extends Fragment {
         String[] proj = {MediaStore.Audio.Media.DATA};
         CursorLoader loader = new CursorLoader(getActivity(), contentUri, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        int column_index = 0;
+        try {
+            column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
